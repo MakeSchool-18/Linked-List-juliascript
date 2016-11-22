@@ -45,23 +45,59 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes"""
-        # TODO: count number of items
-        pass
+        count = 0
+        current = self.head
+        while current is not None:
+            count += 1
+        return count
 
     def append(self, item):
         """Insert the given item at the tail of this linked list"""
-        # TODO: append given item
-        pass
+        node = Node(item)
+        if self.tail is not None:
+            currentTailNode = self.tail
+            currentTailNode.next = node
+            self.tail = node
+        else:
+            self.head = node
+            self.tail = node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list"""
         # TODO: prepend given item
-        pass
+        node = Node(item)
+        if self.head is not None:
+            currentHeadNode = self.head
+            node.next = currentHeadNode
+            self.head = node
+        else: 
+            self.head = node
+            self.tail = node
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
-        # TODO: find given item and delete if found
-        pass
+        current = self.head
+
+        if current.data == item:
+            if current.data == self.tail:
+                pass
+            else: 
+                self.head = current.next
+            return None
+
+        while current.next is not None: 
+            if current.next.data == item:
+                #remove item
+                if current.next == self.tail:
+                    self.tail = current
+                    current.next = None
+                else:
+                    current.next = current.next.next
+
+                return 
+            else: 
+                current = current.next
+        raise ValueError
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
