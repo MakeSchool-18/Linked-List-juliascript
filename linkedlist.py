@@ -80,7 +80,9 @@ class LinkedList(object):
 
         if current.data == item:
             if current.data == self.tail:
-                pass
+                current.data = None
+                current.next = None
+                self.tail.data = None
             else: 
                 self.head = current.next
             return None
