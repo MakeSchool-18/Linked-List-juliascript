@@ -49,6 +49,7 @@ class LinkedList(object):
         current = self.head
         while current is not None:
             count += 1
+            current = current.next
         return count
 
     def append(self, item):
@@ -77,34 +78,45 @@ class LinkedList(object):
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
         current = self.head
+        try:
+            if current.data == item:
+                if current.data == self.tail.data:
+                    self.head = None
+                    self.tail = None
+                    return
+                else: 
+                    self.head = current.next
+                return None
 
-        if current.data == item:
-            if current.data == self.tail:
-                current.data = None
-                current.next = None
-                self.tail.data = None
-            else: 
-                self.head = current.next
-            return None
+            while current.next is not None: 
+                if current.next.data == item:
+                    #remove item
+                    if current.next == self.tail:
+                        self.tail = current
+                        current.next = None
+                    else:
+                        current.next = current.next.next
 
-        while current.next is not None: 
-            if current.next.data == item:
-                #remove item
-                if current.next == self.tail:
-                    self.tail = current
-                    current.next = None
-                else:
-                    current.next = current.next.next
-
-                return 
-            else: 
-                current = current.next
-        raise ValueError
+                    return 
+                else: 
+                    current = current.next
+        except AttributeError:
+            raise ValueError
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality"""
         # TODO: find item where quality(item) is True
-        pass
+        current = self.head
+
+        try: 
+            while current.data is not None:
+                if quality(current.data) is True: 
+                    return current.data
+                else:
+                    current = current.next
+        except AttributeError:
+            return None
+
 
 
 def test_linked_list():
