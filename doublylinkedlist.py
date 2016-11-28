@@ -78,12 +78,13 @@ class DoublyLinkedList(object):
             currentHeadNode.previous = node
             node.next = currentHeadNode
             self.head = node
-
         else: 
             self.head = node
             self.tail = node
+            self.head.previous = None
             self.head.next = self.tail
             self.tail.previous = self.head
+            self.tail.next = None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError"""
